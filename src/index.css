@@ -1,0 +1,37 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+#root {
+  padding: 0;
+}
+
+@font-face {
+  font-family: Mossport; /* Гарнитура шрифта */
+  src: url(../public/fonts/Mossport.otf); /* Путь к файлу со шрифтом */
+}
+
+@font-face {
+  font-family: Gotham Pro Bold; /* Гарнитура шрифта */
+  src: url(../public/fonts/GothaProBol.otf); /* Путь к файлу со шрифтом */
+}
+
+@font-face {
+  font-family: Gotham Pro Medium; /* Гарнитура шрифта */
+  src: url(../public/fonts/GothaProMed.otf); /* Путь к файлу со шрифтом */
+}
+
+@font-face {
+  font-family: Gotham Pro Light; /* Гарнитура шрифта */
+  src: url(../public/fonts/GothaProLig.otf); /* Путь к файлу со шрифтом */
+}
+
+@font-face {
+  font-family: Gotham Pro Regular; /* Гарнитура шрифта */
+  src: url(../public/fonts/GothaProReg.otf); /* Путь к файлу со шрифтом */
+}
+
+@font-face {
+  font-family: Cover; /* Гарнитура шрифта */
+  src: url(../public/fonts/Cover.otf); /* Путь к файлу со шрифтом */
+}
