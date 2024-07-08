@@ -16,6 +16,7 @@ export default {
         customGreen: "#6DAD3A",
         customRed: "#E93734",
         mossport: "#EB3333",
+        accordionGreen: "#3FBA52",
       },
       lineHeight: {
         mossport: 0.85,

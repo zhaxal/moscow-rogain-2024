@@ -7,7 +7,7 @@ import Format from "./components/Format";
 
 function App() {
   return (
-    <div className="max-w-[1140px] mx-auto">
+    <div className="max-w-[1140px] mx-auto overflow-hidden">
       <Cover />
       <Description />
       <Format />
