@@ -1,10 +1,8 @@
-import React from "react";
-
 function Footer() {
   return (
     <>
       <div className="bg-gray-100 h-[1px]" />
-      <div className="flex py-4 justify-start space-x-4">
+      <div className="flex py-4 lg:justify-start justify-center space-x-4">
         <a
           target="_blank"
           href="https://www.mos.ru/moskomsport/"

@@ -15,13 +15,13 @@ function Format() {
         ФОРМАТЫ СОРЕВНОВАНИЙ
       </h2>
 
-      <div className="flex divide-gray-200 justify-center items-center">
+      <div className="flex lg:flex-row flex-col divide-gray-200 justify-center items-center">
         <AccordionSection
           title="Рогейн"
           isOpen={openSection === "Section 1"}
           onClick={() => handleOpenSection("Section 1")}
         >
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid md:grid-cols-2 grid-cols-1 gap-4">
             <img src="/format_images/rogain.png" alt="rogain_image" />
             <p className="font-gothamProLight leading-none text-[16px] text-left">
               Индивидуальные участники смогут показать себя в соревнованиях
@@ -54,7 +54,16 @@ function Format() {
               информацию возможно будет уточнить у администраторов.
             </p>
             <div className="flex justify-center items-center">
-              <button className="bg-mossport text-white font-gothamProMedium text-[16px] py-3 px-5 hover:opacity-75 focus:ring-2 focus:ring-mossport focus:ring-opacity-50 active:bg-mossport-dark transition-opacity duration-150">
+              <button
+                onClick={() =>
+                  window.open(
+                    "https://orgeo.ru/event/info/mosorient",
+                    "_blank",
+                    "noopener,noreferrer"
+                  )
+                }
+                className="bg-mossport text-white font-gothamProMedium text-[16px] py-3 px-5 hover:opacity-75 focus:ring-2 focus:ring-mossport focus:ring-opacity-50 active:bg-mossport-dark transition-opacity duration-150"
+              >
                 РЕГИСТРАЦИЯ
               </button>
             </div>
@@ -65,7 +74,7 @@ function Format() {
           isOpen={openSection === "Section 2"}
           onClick={() => handleOpenSection("Section 2")}
         >
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid md:grid-cols-2 grid-cols-1 gap-4">
             <img src="/format_images/labirinth.png" alt="labirinth_image" />
             <p className="font-gothamProLight leading-none text-[16px] text-left">
               <p className="font-gothamProMedium">
@@ -100,7 +109,7 @@ function Format() {
           isOpen={openSection === "Section 3"}
           onClick={() => handleOpenSection("Section 3")}
         >
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid md:grid-cols-2 grid-cols-1 gap-4">
             <img src="/format_images/orient.png" alt="orient_image" />
             <p className="font-gothamProLight leading-none text-[16px] text-left">
               Новая спортивная карта на территориях Нескучного сада и Воробьевых
@@ -145,7 +154,16 @@ function Format() {
               соревнования возможно только при наличии свободных мест
             </p>
             <div className="flex justify-center items-center">
-              <button className="bg-mossport text-white font-gothamProMedium text-[16px] py-3 px-5 hover:opacity-75 focus:ring-2 focus:ring-mossport focus:ring-opacity-50 active:bg-mossport-dark transition-opacity duration-150">
+              <button
+                onClick={() =>
+                  window.open(
+                    "https://orgeo.ru/event/info/mosorient",
+                    "_blank",
+                    "noopener,noreferrer"
+                  )
+                }
+                className="bg-mossport text-white font-gothamProMedium text-[16px] py-3 px-5 hover:opacity-75 focus:ring-2 focus:ring-mossport focus:ring-opacity-50 active:bg-mossport-dark transition-opacity duration-150"
+              >
                 РЕГИСТРАЦИЯ
               </button>
             </div>
@@ -156,7 +174,7 @@ function Format() {
           isOpen={openSection === "Section 4"}
           onClick={() => handleOpenSection("Section 4")}
         >
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid md:grid-cols-2 grid-cols-1 gap-4">
             <img src="/format_images/lection.png" alt="lection_image" />
             <p className="font-gothamProLight leading-none text-[16px] text-left">
               Мастер-классы по ориентированию на местности, работе с картой и
@@ -164,10 +182,10 @@ function Format() {
               уровней:
               <br />
               <br />
-              новичков (без специальных знаний);
+              - новичков (без специальных знаний);
               <br />
               <br />
-              продвинутых (с опытом).
+              - продвинутых (с опытом).
               <br />
               <br />
               Мастер-классы для обеих групп будут проходить одновременно,
@@ -179,11 +197,6 @@ function Format() {
               туризма. Темы и имена спикеров будет опубликованы в ближайшее
               время.
             </p>
-            <div className="flex justify-center items-center">
-              <button className="bg-mossport text-white font-gothamProMedium text-[16px] py-3 px-5 hover:opacity-75 focus:ring-2 focus:ring-mossport focus:ring-opacity-50 active:bg-mossport-dark transition-opacity duration-150">
-                РЕГИСТРАЦИЯ
-              </button>
-            </div>
           </div>
         </AccordionSection>
 
@@ -192,7 +205,7 @@ function Format() {
           isOpen={openSection === "Section 5"}
           onClick={() => handleOpenSection("Section 5")}
         >
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid md:grid-cols-2 grid-cols-1 gap-4">
             <img
               src="/format_images/family_rogain.png"
               alt="family_rogain_image"
@@ -226,7 +239,16 @@ function Format() {
               </p>
             </p>
             <div className="flex justify-center items-center">
-              <button className="bg-mossport text-white font-gothamProMedium text-[16px] py-3 px-5 hover:opacity-75 focus:ring-2 focus:ring-mossport focus:ring-opacity-50 active:bg-mossport-dark transition-opacity duration-150">
+              <button
+                onClick={() =>
+                  window.open(
+                    "https://orgeo.ru/event/info/mosorient",
+                    "_blank",
+                    "noopener,noreferrer"
+                  )
+                }
+                className="bg-mossport text-white font-gothamProMedium text-[16px] py-3 px-5 hover:opacity-75 focus:ring-2 focus:ring-mossport focus:ring-opacity-50 active:bg-mossport-dark transition-opacity duration-150"
+              >
                 РЕГИСТРАЦИЯ
               </button>
             </div>
@@ -251,12 +273,12 @@ function AccordionSection({
   onClick,
 }: AccordionSectionProps) {
   return (
-    <div className="flex flex-row items-center overflow-visible">
+    <div className="flex lg:flex-row flex-col items-center overflow-visible">
       <button
         style={{
           boxShadow: "inset 2px 0px 20px rgba(0, 0, 0, 0.25)",
         }}
-        className="flex justify-center content-center py-2 px-4 min-w-[70px] min-h-[700px]"
+        className="flex justify-center content-center py-2 px-4 lg:min-w-[70px] lg:min-h-[700px] md:min-w-[756px] min-w-[300px]"
         onClick={onClick}
       >
         <p
@@ -265,8 +287,12 @@ function AccordionSection({
             transform: "rotate(180deg)",
             textAlign: "center",
           }}
-          className="font-mossport uppercase text-[48px] leading-none text-accordionGreen"
+          className="font-mossport uppercase text-[48px] leading-none text-accordionGreen lg:block hidden"
         >
+          {title}
+        </p>
+
+        <p className="font-mossport uppercase md:text-[48px] text-3xl leading-none text-accordionGreen lg:hidden block">
           {title}
         </p>
       </button>
@@ -277,9 +303,33 @@ function AccordionSection({
           boxShadow:
             "inset 6px 6px 8px rgba(0, 0, 0, 0.25), inset -6px -6px 8px rgba(0, 0, 0, 0.25)",
         }}
-        className="overflow-hidden min-h-[700px]"
+        className="overflow-hidden min-h-[700px] lg:block hidden"
       >
         <div className="p-8 min-w-[780px]">{children}</div>
+      </div>
+
+      <div
+        style={{
+          maxHeight: isOpen ? "724px" : "0",
+          transition: "max-height 0.3s ease",
+          boxShadow:
+            "inset 6px 6px 8px rgba(0, 0, 0, 0.25), inset -6px -6px 8px rgba(0, 0, 0, 0.25)",
+        }}
+        className="overflow-hidden max-w-[756px] lg:hidden md:block hidden"
+      >
+        <div className="p-8 min-h-[724px] max-w-[756px]">{children}</div>
+      </div>
+
+      <div
+        style={{
+          maxHeight: isOpen ? "1060px" : "0",
+          transition: "max-height 0.3s ease",
+          boxShadow:
+            "inset 6px 6px 8px rgba(0, 0, 0, 0.25), inset -6px -6px 8px rgba(0, 0, 0, 0.25)",
+        }}
+        className="overflow-hidden max-w-[300px] lg:hidden md:hidden block"
+      >
+        <div className="p-8 min-h-[1060px] max-w-[300px]">{children}</div>
       </div>
     </div>
   );

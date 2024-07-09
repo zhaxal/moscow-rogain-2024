@@ -5,16 +5,12 @@ function Schedule() {
         РАСПИСАНИЕ
       </h2>
 
-      <div className="flex px-16 justify-between">
-        <div className="flex-col space-y-40">
-          <h3 className="font-mossport text-[48px] text-customRed leading-mossport text-center max-w-[400px]">
-            20 ИЮЛЯ <br /> НЕСКУЧНЫЙ САД
-          </h3>
+      <div className="flex md:flex-row flex-col lg:px-16 md:px-10 justify-between">
+        <h3 className="font-mossport text-[48px] text-customRed leading-mossport text-center max-w-[400px] md:mb-0 mb-7">
+          20 ИЮЛЯ <br /> НЕСКУЧНЫЙ САД
+        </h3>
 
-          <img src="/logos/rogain_logo.svg" />
-        </div>
-
-        <div>
+        <div >
           <ScheduleRow
             time="12:00"
             event="Открытие мероприятия и регистрация"
@@ -54,12 +50,12 @@ function ScheduleRow(props: { time: string; event: string }) {
   const { time, event } = props;
 
   return (
-    <div className="flex space-x-5 py-3">
-      <p className="font-gothamProMedium text-[24px] leading-none min-w-[170px]">
+    <div className="flex space-x-5 py-3 md:px-0 px-4">
+      <p className="font-gothamProMedium md:text-[24px] text-sm leading-none md:min-w-[170px] min-w-28">
         {time}
       </p>
 
-      <p className="font-gothamProLight text-[24px] leading-none text-start max-w-[540px]">
+      <p className="font-gothamProLight md:text-[24px] text-sm leading-none text-start lg:max-w-[540px] md:max-w-[440px] max-w-56">
         {event}
       </p>
     </div>
