@@ -201,7 +201,7 @@ function Format() {
         </AccordionSection>
 
         <AccordionSection
-          title="Лекторий и мастер-классы"
+          title="Рогейн «семейный»"
           isOpen={openSection === "Section 5"}
           onClick={() => handleOpenSection("Section 5")}
         >
@@ -278,14 +278,13 @@ function AccordionSection({
         style={{
           boxShadow: "inset 2px 0px 20px rgba(0, 0, 0, 0.25)",
         }}
-        className="flex justify-center content-center py-2 px-4 lg:min-w-[70px] lg:min-h-[700px] md:min-w-[756px] min-w-[300px]"
+        className="flex justify-center items-center py-2 px-4 lg:min-w-[70px] lg:min-h-[700px] md:min-w-[756px] min-w-[300px]"
         onClick={onClick}
       >
         <p
           style={{
             writingMode: "vertical-lr",
             transform: "rotate(180deg)",
-            textAlign: "center",
           }}
           className="font-mossport uppercase text-[48px] leading-none text-accordionGreen lg:block hidden"
         >

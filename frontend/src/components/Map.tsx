@@ -12,9 +12,7 @@ function Map() {
               Эл. почта
             </p>
             <p className="font-gothamProMedium text-[24px] text-left underline">
-              <a href="mailto:orient.moscow@yandex.ru">
-                orient.moscow@yandex.ru
-              </a>
+              <a href="mailto:pr@mosgorsport.ru">pr@mosgorsport.ru</a>
             </p>
           </div>
 
@@ -29,14 +27,14 @@ function Map() {
         </div>
 
         <iframe
-          src="https://yandex.com/map-widget/v1/?um=constructor%3A61fdcacd5efbf257c3b522ad81fae5b28ba5abeef4a616ec065e9b58f46cd70f&amp;source=constructor"
+          src="https://yandex.com/map-widget/v1/?um=constructor%3A15fcf51ce76e6bcb2a9ecd4d68fad14d4495599907b498ce3f14c58771a3836d&amp;source=constructor"
           width="100%"
           height="490"
           frameBorder="0"
         ></iframe>
       </div>
 
-      <div className="lg:hidden md:block pt-14 pb-7">
+      <div className="lg:hidden md:block pt-14 pb-7 px-4">
         <h2 className="font-mossport text-[64px] text-customGreen leading-mossport text-left">
           ГДЕ НАС НАЙТИ?
         </h2>
@@ -44,7 +42,7 @@ function Map() {
 
       <iframe
         className="lg:hidden md:block sm:block mb-8"
-        src="https://yandex.com/map-widget/v1/?um=constructor%3A61fdcacd5efbf257c3b522ad81fae5b28ba5abeef4a616ec065e9b58f46cd70f&amp;source=constructor"
+        src="https://yandex.com/map-widget/v1/?um=constructor%3A15fcf51ce76e6bcb2a9ecd4d68fad14d4495599907b498ce3f14c58771a3836d&amp;source=constructor"
         width="100%"
         height="490"
         frameBorder="0"
@@ -52,7 +50,9 @@ function Map() {
 
       <div className="lg:hidden md:flex-col space-y-5 max-w-[370px] px-7 mb-8">
         <div>
-          <p className="font-gothamProBold md:text-[24px] text-left">Эл. почта</p>
+          <p className="font-gothamProBold md:text-[24px] text-left">
+            Эл. почта
+          </p>
           <p className="font-gothamProMedium md:text-[24px] text-left underline">
             <a href="mailto:pr@mosgorsport.ru">pr@mosgorsport.ru</a>
           </p>
