@@ -118,10 +118,14 @@ function Question() {
       {stage === "question" && (
         <form
           onSubmit={handleSubmit}
-          className="flex flex-col items-center justify-center min-h-screen"
+          className="flex flex-col items-center justify-center min-h-screen px-4"
         >
-          <fieldset className="mb-8">
-            <legend className="text-xl font-semibold my-4">
+          <h1 className="text-2xl font-bold my-4">
+            КП№{data?.checkpointNumber}
+          </h1>
+
+          <fieldset className="w-full max-w-md mb-8">
+            <legend className="text-xl font-semibold my-4 text-center">
               {data?.question}
             </legend>
             <div className="space-y-4">
@@ -138,14 +142,14 @@ function Question() {
                     onChange={(e) => setSelectedAnswer(e.target.value)}
                     className="w-4 h-4"
                   />
-                  <span>{item.answer}</span>
+                  <span className="text-sm md:text-base">{item.answer}</span>
                 </label>
               ))}
             </div>
           </fieldset>
           <button
             type="submit"
-            className="px-4 py-2 text-white bg-red-500 rounded hover:bg-red-700"
+            className="px-4 py-2 text-white bg-red-500 rounded hover:bg-red-700 text-sm md:text-base"
           >
             Ответить
           </button>
