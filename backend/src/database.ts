@@ -11,6 +11,7 @@ interface User {
   phone: number;
   verified: boolean;
   code?: number;
+  role: "admin" | "user";
 }
 
 export const usersCol = db.collection<User>("users");

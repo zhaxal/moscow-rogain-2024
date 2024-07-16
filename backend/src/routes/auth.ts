@@ -11,37 +11,56 @@ dotenv.config();
 
 const authRouter = Router();
 
+const useVoiceCode = false;
+
 authRouter.post("/register", async (req, res) => {
   const code = randomInt(1000, 9999);
   const phone = req.body.phone;
 
-  await axios.post(
-    "https://direct.i-dgtl.ru/api/v1/message",
-    [
-      {
-        channelType: "VOICECODE",
-        senderName: "voicecode",
-        destination: phone,
-        content: {
-          contentType: "text",
-          text: `Ваш код от Orient: ${code}`,
-        },
-      },
-    ],
-    {
-      headers: {
-        Authorization: "Basic MzU4MTp4NENOSjNGT0tHMGhlOWZwemRSWXA0",
-      },
-    }
-  );
+  if (useVoiceCode) {
+    axios
+      .post(
+        "https://direct.i-dgtl.ru/api/v1/message",
+        [
+          {
+            channelType: "VOICECODE",
+            senderName: "voicecode",
+            destination: phone,
+            content: {
+              contentType: "text",
+              text: `Ваш код от Orient: ${code}`,
+            },
+          },
+        ],
+        {
+          headers: {
+            Authorization: "Basic MzU4MTp4NENOSjNGT0tHMGhlOWZwemRSWXA0",
+            "Content-Type": "application/json",
+          },
+        }
+      )
+      .then(async () => {
+        usersCol.replaceOne(
+          { phone },
+          { phone, verified: false, code, role: "user" },
+          { upsert: true }
+        );
 
-  usersCol.replaceOne(
-    { phone },
-    { phone, verified: false, code },
-    { upsert: true }
-  );
+        return res.send("код отправлен");
+      })
+      .catch((error) => {
+        console.error("Ошибка отправки кода", error.response.data);
+        return res.status(500).send("ошибка отправки кода");
+      });
+  } else {
+    usersCol.replaceOne(
+      { phone },
+      { phone, verified: false, code, role: "user" },
+      { upsert: true }
+    );
 
-  res.send("пользователь зарегистрирован");
+    return res.send("код отправлен");
+  }
 });
 
 authRouter.post("/verify", async (req, res) => {
@@ -54,7 +73,7 @@ authRouter.post("/verify", async (req, res) => {
   );
 
   if (!user.value) {
-    return res.status(401).send("неверный код");
+    return res.status(400).send("неверный код");
   }
 
   const token = uuidv4();
@@ -71,6 +90,54 @@ authRouter.post("/verify", async (req, res) => {
   );
 
   res.send({ token });
+});
+
+authRouter.get("/me", async (req, res) => {
+  const token = req.headers.authorization;
+
+  if (!token) {
+    return res.status(401).send("не авторизован");
+  }
+
+  const session = await sessionsCol.findOne({
+    token,
+    expiresAt: { $gt: new Date() },
+  });
+
+  if (!session) {
+    return res.status(401).send("не авторизован");
+  }
+
+  const user = await usersCol.findOne({ _id: session.userId });
+
+  if (!user) {
+    return res.status(401).send("не авторизован");
+  }
+
+  res.send({ phone: user.phone, role: user.role });
+
+  await sessionsCol.updateOne(
+    {
+      token,
+    },
+    {
+      $set: {
+        expiresAt: new Date(Date.now() + 1000 * 60 * 60 * 24),
+      },
+    }
+  );
+});
+
+authRouter.post("/logout", async (req, res) => {
+  const token = req.headers.authorization;
+
+  if (!token) {
+    return res.status(401).send("не авторизован");
+  }
+
+  await sessionsCol.deleteOne({ token });
+
+  res.send("выход выполнен");
 });
 
 export default authRouter;

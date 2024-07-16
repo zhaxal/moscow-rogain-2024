@@ -23,5 +23,5 @@ apiRouter.use("/question", questionRouter);
 app.use("/api", apiRouter);
 
 app.listen(port, () => {
-  console.log(`Server is running on http://localhost:${port}`);
+  console.log(`Server is running on http://localhost:${port}/api`);
 });
