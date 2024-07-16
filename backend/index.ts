@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import express from "express";
 import authRouter from "./src/routes/auth";
 import questionRouter from "./src/routes/question";
+import adminRouter from "./src/routes/admin";
 
 dotenv.config();
 
@@ -19,6 +20,7 @@ apiRouter.get("/", (req, res) => {
 
 apiRouter.use("/auth", authRouter);
 apiRouter.use("/question", questionRouter);
+apiRouter.use("/admin", adminRouter);
 
 app.use("/api", apiRouter);
 

@@ -14,7 +14,7 @@ function SecuredRoute(props: SecuredRouteProps) {
 
   if (status === "loading") {
     return (
-      <div className="flex items-center justify-center h-screen text-2xl font-bold text-blue-500">
+      <div className="flex items-center justify-center h-screen text-2xl font-bold">
         Загрузка...
       </div>
     );
@@ -26,14 +26,14 @@ function SecuredRoute(props: SecuredRouteProps) {
 
   if (role === "loading") {
     return (
-      <div className="flex items-center justify-center h-screen text-2xl font-bold text-blue-500">
+      <div className="flex items-center justify-center h-screen text-2xl font-bold ">
         Загрузка...
       </div>
     );
   }
 
   if (props.allowedRoles && !props.allowedRoles.includes(role)) {
-    return <Navigate to={`/login?redirect=${location.pathname}`} />;
+    return <Navigate to={`/`} />;
   }
 
   return <>{props.children}</>;

@@ -1,60 +1,88 @@
 import "./App.css";
-import Cover from "./components/home-page-components/Cover";
 
-import Schedule from "./components/home-page-components/Schedule";
 import Map from "./components/home-page-components/Map";
+import Cover from "./components/home-page-components/Cover";
+import Login from "./components/login-page-components/Login";
 import Format from "./components/home-page-components/Format";
 import Footer from "./components/home-page-components/Footer";
-
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Login from "./components/login-page-components/Login";
+import Schedule from "./components/home-page-components/Schedule";
 import Question from "./components/question-page-components/Question";
-import AuthProvider from "./contexts/AuthContext";
+
 import SecuredRoute from "./components/SecuredRoute";
+
 import { SnackbarProvider } from "./contexts/SnackbarContext";
+import AuthProvider from "./contexts/AuthContext";
+
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Admin from "./components/admin-page-components/Admin";
+
+const queryClient = new QueryClient();
 
 function App() {
   return (
-    <SnackbarProvider>
-      <AuthProvider>
-        <Router>
-          <Routes>
-            <Route
-              path="/"
-              element={
-                <div className="max-w-[1140px] mx-auto overflow-visible">
-                  <Cover />
-                  <Format />
-                  <Schedule />
-                  <Map />
-                  <Footer />
-                </div>
-              }
-            />
-
-            <Route
-              path="/login"
-              element={
-                <div className="max-w-[1140px] mx-auto overflow-visible">
-                  <Login />
-                </div>
-              }
-            />
-
-            <Route
-              path="/question/:id"
-              element={
-                <SecuredRoute allowedRoles={["user", "admin"]}>
+    <QueryClientProvider client={queryClient}>
+      <SnackbarProvider>
+        <AuthProvider>
+          <Router>
+            <Routes>
+              <Route
+                path="/"
+                element={
                   <div className="max-w-[1140px] mx-auto overflow-visible">
-                    <Question />
+                    <Cover />
+                    <Format />
+                    <Schedule />
+                    <Map />
+                    <Footer />
                   </div>
-                </SecuredRoute>
-              }
-            />
-          </Routes>
-        </Router>
-      </AuthProvider>
-    </SnackbarProvider>
+                }
+              />
+
+              <Route
+                path="/login"
+                element={
+                  <div className="max-w-[1140px] mx-auto overflow-visible">
+                    <Login />
+                  </div>
+                }
+              />
+
+              <Route
+                path="/question/:id"
+                element={
+                  <SecuredRoute allowedRoles={["user", "admin"]}>
+                    <div className="max-w-[1140px] mx-auto overflow-visible">
+                      <Question />
+                    </div>
+                  </SecuredRoute>
+                }
+              />
+
+              <Route
+                path="/adminpanel"
+                element={
+                  <SecuredRoute allowedRoles={["admin"]}>
+                    <div className="max-w-[1280px] mx-auto overflow-scroll">
+                      <Admin />
+                    </div>
+                  </SecuredRoute>
+                }
+              />
+
+              <Route
+                path="*"
+                element={
+                  <div className="max-w-[1140px] mx-auto overflow-visible">
+                    <h1>404</h1>
+                  </div>
+                }
+              />
+            </Routes>
+          </Router>
+        </AuthProvider>
+      </SnackbarProvider>
+    </QueryClientProvider>
   );
 }
 

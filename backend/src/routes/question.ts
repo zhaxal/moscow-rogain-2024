@@ -33,6 +33,15 @@ questionRouter.get("/:id", async (req, res) => {
     return res.status(404).send("вопрос не найден");
   }
 
+  const existingAnswer = await answersCol.findOne({
+    questionId: question._id,
+    userId: session.userId,
+  });
+
+  if (existingAnswer) {
+    return res.status(400).send("ответ уже принят");
+  }
+
   res.send(question);
 });
 
