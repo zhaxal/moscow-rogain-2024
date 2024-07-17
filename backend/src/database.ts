@@ -11,6 +11,7 @@ interface User {
   phone: number;
   verified: boolean;
   code?: number;
+  lastCodeSentAt?: Date;
   role: "admin" | "user";
 }
 

@@ -121,7 +121,7 @@ function Question() {
           className="flex flex-col items-center justify-center min-h-screen px-4"
         >
           <h1 className="text-2xl font-bold my-4">
-            КП№{data?.checkpointNumber}
+            КП №{data?.checkpointNumber}
           </h1>
 
           <fieldset className="w-full max-w-md mb-8">

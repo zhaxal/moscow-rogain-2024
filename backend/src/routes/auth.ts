@@ -1,4 +1,5 @@
 import axios from "axios";
+import moment from "moment";
 import dotenv from "dotenv";
 
 import { Router } from "express";
@@ -11,11 +12,35 @@ dotenv.config();
 
 const authRouter = Router();
 
-const useVoiceCode = false;
+const useVoiceCode = true;
 
 authRouter.post("/register", async (req, res) => {
   const code = randomInt(1000, 9999);
   const phone = req.body.phone;
+
+  const cooldownMinutes = 5;
+  const now = new Date();
+  const cooldownEnd = new Date(now.getTime() - cooldownMinutes * 60000);
+
+  const user = await usersCol.findOne({
+    phone,
+    lastCodeSentAt: { $gt: cooldownEnd },
+  });
+
+  if (user) {
+    const lastCodeSent = user.lastCodeSentAt;
+
+    let timediff = "5 минут";
+
+    if (lastCodeSent) {
+      const diff = moment().diff(moment(lastCodeSent), "minutes");
+      timediff = `${cooldownMinutes - diff} минут`;
+    }
+
+    return res
+      .status(429)
+      .send(`повторная отправка кода возможна через ${timediff}`);
+  }
 
   if (useVoiceCode) {
     axios
@@ -34,15 +59,18 @@ authRouter.post("/register", async (req, res) => {
         ],
         {
           headers: {
-            Authorization: "Basic MzU4MTp4NENOSjNGT0tHMGhlOWZwemRSWXA0",
+            Authorization: "Basic " + process.env.DIGITAL_DIRECT_TOKEN,
             "Content-Type": "application/json",
           },
         }
       )
       .then(async () => {
-        usersCol.replaceOne(
+        usersCol.updateOne(
           { phone },
-          { phone, verified: false, code, role: "user" },
+          {
+            $set: { phone, verified: false, code, lastCodeSentAt: now },
+            $setOnInsert: { role: "user" },
+          },
           { upsert: true }
         );
 

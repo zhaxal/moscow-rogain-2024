@@ -60,7 +60,7 @@ function App() {
               />
 
               <Route
-                path="/adminpanel"
+                path="/admin"
                 element={
                   <SecuredRoute allowedRoles={["admin"]}>
                     <div className="max-w-[1280px] mx-auto overflow-scroll">

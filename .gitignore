@@ -24,3 +24,5 @@ dist-ssr
 *.sw?
 moscowrogain2024.tar
 .env
+moscowrogain2024_frontend.tar
+moscowrogain2024_backend.tar
