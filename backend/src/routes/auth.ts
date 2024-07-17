@@ -18,7 +18,7 @@ authRouter.post("/register", async (req, res) => {
   const code = randomInt(1000, 9999);
   const phone = req.body.phone;
 
-  const cooldownMinutes = 5;
+  const cooldownMinutes = 1;
   const now = new Date();
   const cooldownEnd = new Date(now.getTime() - cooldownMinutes * 60000);
 
@@ -81,9 +81,12 @@ authRouter.post("/register", async (req, res) => {
         return res.status(500).send("ошибка отправки кода");
       });
   } else {
-    usersCol.replaceOne(
+    usersCol.updateOne(
       { phone },
-      { phone, verified: false, code, role: "user" },
+      {
+        $set: { phone, verified: false, code, lastCodeSentAt: now },
+        $setOnInsert: { role: "user" },
+      },
       { upsert: true }
     );
 

@@ -83,6 +83,21 @@ function Login() {
       });
   };
 
+  const resendCode = async () => {
+    backendInstance
+      .post("/auth/register", phoneForm.getValues())
+      .then(() => {
+        showMessage("Код отправлен", 3000, "success");
+      })
+      .catch((error) => {
+        const message =
+          error.response.data.length > 100
+            ? "Ошибка, пожалуйста попробуйте позже"
+            : error.response.data;
+        showMessage(message, 3000, "error");
+      });
+  };
+
   const onSubmitCode = async (data: CodeFormProps) => {
     backendInstance
       .post<{
@@ -151,6 +166,20 @@ function Login() {
                 </p>
               )}
             </div>
+
+            <div className="mt-4">
+              <p className="text-sm text-gray-600">
+                На ваш номер был отправлен звонок с кодом
+              </p>
+              <button
+                type="button"
+                className="mt-2 px-2 py-1 border border-blue-500 text-blue-500 rounded hover:bg-blue-500 hover:text-white"
+                onClick={resendCode}
+              >
+                Отправить код еще раз
+              </button>
+            </div>
+
             <div className="flex items-baseline justify-between">
               <button
                 type="submit"

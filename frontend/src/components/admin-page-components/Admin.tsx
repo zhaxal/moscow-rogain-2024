@@ -25,6 +25,10 @@ type UserAnswersResponse = User[];
 function Admin() {
   const { token } = useAuth();
 
+  const csvLink =
+    import.meta.env.VITE_BACKEND_URL + "/admin/users/csv" ||
+    "https://rogaine.mosgorsport.ru/api/admin/users/csv";
+
   const { data, isLoading } = useQuery({
     queryKey: ["admin"],
     queryFn: async () => {
@@ -51,53 +55,63 @@ function Admin() {
   }
 
   return (
-    <table className="min-w-full leading-normal">
-      <thead>
-        <tr>
-          <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-            Номер телефона
-          </th>
-          <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-            Количество правильных ответов
-          </th>
-          {checkpoints.map((cp, index) => (
-            <th
-              key={index}
-              className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider"
-            >
-              {cp}
-            </th>
-          ))}
-        </tr>
-      </thead>
-      <tbody>
-        {data?.map((user) => (
-          <tr key={user.userId.toString()}>
-            <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-              {user.phone}
-            </td>
-            <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-              {user.correctAnswers}
-            </td>
-            {checkpoints.map((_, index) => {
-              // Assuming the presence of a correct answer for a checkpoint
-              const hasCorrectAnswer = user.answers.some(
-                (answer) =>
-                  answer.correct && answer.checkpointNumber === index + 1
-              );
-              return (
-                <td
+    <div>
+      <h1 className="text-2xl font-semibold text-gray-900">Панель Админа</h1>
+      <a
+        href={csvLink}
+        className="block w-64 p-1 my-4 text-center text-white bg-blue-500 rounded-md"
+      >
+        Скачать таблицу
+      </a>
+      <div className="overflow-scroll">
+        <table className="min-w-full leading-normal ">
+          <thead>
+            <tr>
+              <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                Номер телефона
+              </th>
+              <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                Количество правильных ответов
+              </th>
+              {checkpoints.map((cp, index) => (
+                <th
                   key={index}
-                  className="px-5 py-5 border-b border-gray-200 bg-white text-sm"
+                  className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider"
                 >
-                  {hasCorrectAnswer ? "✅" : "❌"}
+                  {cp}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {data?.map((user) => (
+              <tr key={user.userId.toString()}>
+                <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                  {user.phone}
                 </td>
-              );
-            })}
-          </tr>
-        ))}
-      </tbody>
-    </table>
+                <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                  {user.correctAnswers}
+                </td>
+                {checkpoints.map((_, index) => {
+                  const hasCorrectAnswer = user.answers.some(
+                    (answer) =>
+                      answer.correct && answer.checkpointNumber === index + 1
+                  );
+                  return (
+                    <td
+                      key={index}
+                      className="px-5 py-5 border-b border-gray-200 bg-white text-sm"
+                    >
+                      {hasCorrectAnswer ? "✅" : "❌"}
+                    </td>
+                  );
+                })}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
   );
 }
 
