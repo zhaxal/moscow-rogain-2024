@@ -12,7 +12,7 @@ dotenv.config();
 
 const authRouter = Router();
 
-const useVoiceCode = true;
+const useVoiceCode = false;
 
 authRouter.post("/register", async (req, res) => {
   const code = randomInt(1000, 9999);
@@ -123,6 +123,48 @@ authRouter.post("/verify", async (req, res) => {
   res.send({ token });
 });
 
+authRouter.post("/name", async (req, res) => {
+  let session = null;
+
+  if (!req.headers.authorization) {
+    return res.status(401).send("не авторизован");
+  } else {
+    session = await sessionsCol.findOne({
+      token: req.headers.authorization,
+    });
+
+    if (!session) {
+      return res.status(401).send("не авторизован");
+    }
+
+    if (session?.expiresAt < new Date()) {
+      await sessionsCol.deleteOne({ token: req.headers.authorization });
+      return res.status(401).send("не авторизован");
+    }
+  }
+
+  const user = await usersCol.findOne({ _id: session.userId });
+
+  if (!user) {
+    return res.status(401).send("не авторизован");
+  }
+
+  const { firstName, lastName } = req.body;
+
+  if (!firstName || !lastName) {
+    return res.status(400).send("имя не указано");
+  }
+
+  await usersCol.updateOne(
+    { _id: session.userId },
+    {
+      $set: { firstName, lastName },
+    }
+  );
+
+  res.send("имя сохранено");
+});
+
 authRouter.get("/me", async (req, res) => {
   const token = req.headers.authorization;
 
@@ -145,7 +187,13 @@ authRouter.get("/me", async (req, res) => {
     return res.status(401).send("не авторизован");
   }
 
-  res.send({ phone: user.phone, role: user.role });
+  let hasName = false;
+
+  if (user.firstName && user.lastName) {
+    hasName = true;
+  }
+
+  res.send({ phone: user.phone, role: user.role, hasName });
 
   await sessionsCol.updateOne(
     {

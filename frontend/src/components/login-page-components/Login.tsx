@@ -20,6 +20,11 @@ interface CodeFormProps {
   code: string;
 }
 
+interface NameFormProps {
+  firstName: string;
+  lastName: string;
+}
+
 const schema = yup.object().shape({
   phone: yup
     .string()
@@ -32,20 +37,28 @@ const schema = yup.object().shape({
 
 function Login() {
   const navigate = useNavigate();
-  const [stage, setStage] = useState<"phone" | "code">("phone");
+  const [stage, setStage] = useState<"phone" | "code" | "name">("phone");
   const { showMessage } = useSnackbar();
-  const { signIn, status } = useAuth();
+  const { token, status, hasName, signIn, fetchMe } = useAuth();
   const [searchParams, _] = useSearchParams();
 
   useEffect(() => {
-    if (status === "authenticated" && searchParams.get("redirect")) {
+    if (status === "authenticated" && !hasName) {
+      setStage("name");
+    }
+
+    if (status === "authenticated" && searchParams.get("redirect") && hasName) {
       navigate(searchParams.get("redirect") || "/");
     }
 
-    if (status === "authenticated" && !searchParams.get("redirect")) {
+    if (
+      status === "authenticated" &&
+      !searchParams.get("redirect") &&
+      hasName
+    ) {
       navigate("/");
     }
-  }, [status]);
+  }, [status, hasName]);
 
   const phoneForm = useForm<PhoneFormProps>({
     resolver: yupResolver(schema),
@@ -53,6 +66,21 @@ function Login() {
       phone: "",
     },
   });
+
+  const onSubmitPhone = async (data: PhoneFormProps) => {
+    backendInstance
+      .post("/auth/register", data)
+      .then(() => {
+        setStage("code");
+      })
+      .catch((error) => {
+        const message =
+          error.response.data.length > 100
+            ? "Ошибка, пожалуйста попробуйте позже"
+            : error.response.data;
+        showMessage(message, 3000, "error");
+      });
+  };
 
   const codeForm = useForm<CodeFormProps>({
     resolver: yupResolver(
@@ -68,11 +96,16 @@ function Login() {
     },
   });
 
-  const onSubmitPhone = async (data: PhoneFormProps) => {
+  const onSubmitCode = async (data: CodeFormProps) => {
     backendInstance
-      .post("/auth/register", data)
-      .then(() => {
-        setStage("code");
+      .post<{
+        token: string;
+      }>("/auth/verify", {
+        phone: phoneForm.getValues().phone,
+        code: data.code,
+      })
+      .then(({ data }) => {
+        signIn(data.token);
       })
       .catch((error) => {
         const message =
@@ -98,17 +131,27 @@ function Login() {
       });
   };
 
-  const onSubmitCode = async (data: CodeFormProps) => {
+  const nameForm = useForm<NameFormProps>({
+    resolver: yupResolver(
+      yup.object().shape({
+        firstName: yup.string().required("Введите имя"),
+        lastName: yup.string().required("Введите фамилию"),
+      })
+    ),
+    defaultValues: {
+      firstName: "",
+      lastName: "",
+    },
+  });
+
+  const onSubmitName = async (data: NameFormProps) => {
     backendInstance
-      .post<{
-        token: string;
-      }>("/auth/verify", {
-        phone: phoneForm.getValues().phone,
-        code: data.code,
+      .post("/auth/name", data, {
+        headers: {
+          Authorization: token,
+        },
       })
-      .then(({ data }) => {
-        signIn(data.token);
-      })
+      .then(() => fetchMe())
       .catch((error) => {
         const message =
           error.response.data.length > 100
@@ -122,7 +165,7 @@ function Login() {
     <div className="flex items-center justify-center min-h-screen ">
       <div className="px-8 py-6 mt-4 text-left bg-white shadow-lg">
         <h3 className="text-2xl font-bold text-center">Регистрация</h3>
-        {stage === "phone" ? (
+        {stage === "phone" && (
           <form onSubmit={phoneForm.handleSubmit(onSubmitPhone)}>
             <div className="mt-4">
               <label className="block" htmlFor="phone">
@@ -149,7 +192,8 @@ function Login() {
               </button>
             </div>
           </form>
-        ) : (
+        )}
+        {stage === "code" && (
           <form onSubmit={codeForm.handleSubmit(onSubmitCode)}>
             <div className="mt-4">
               <label className="block" htmlFor="code">
@@ -186,6 +230,46 @@ function Login() {
                 className="px-6 py-2 mt-4 text-white bg-red-600 rounded-lg hover:bg-red-900"
               >
                 ПОДТВЕРДИТЬ
+              </button>
+            </div>
+          </form>
+        )}
+        {stage === "name" && (
+          <form onSubmit={nameForm.handleSubmit(onSubmitName)}>
+            <div className="mt-4">
+              <label className="block" htmlFor="lastName">
+                Фамилия
+              </label>
+              <input
+                {...nameForm.register("lastName")}
+                type="text"
+                className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-red-600"
+              />
+              {nameForm.formState.errors.lastName && (
+                <p className="text-sm text-red-600">
+                  {nameForm.formState.errors.lastName.message}
+                </p>
+              )}
+              <label className="block" htmlFor="firstName">
+                Имя
+              </label>
+              <input
+                {...nameForm.register("firstName")}
+                type="text"
+                className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-red-600"
+              />
+              {nameForm.formState.errors.firstName && (
+                <p className="text-sm text-red-600">
+                  {nameForm.formState.errors.firstName.message}
+                </p>
+              )}
+            </div>
+            <div className="flex items-baseline justify-between">
+              <button
+                type="submit"
+                className="px-6 py-2 mt-4 text-white bg-red-600 rounded-lg hover:bg-red-900"
+              >
+                Сохранить
               </button>
             </div>
           </form>

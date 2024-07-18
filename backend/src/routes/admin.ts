@@ -70,6 +70,8 @@ adminRouter.get("/users", async (req, res) => {
           _id: 0,
           userId: "$_id",
           phone: "$userInfo.phone",
+          firstName: "$userInfo.firstName",
+          lastName: "$userInfo.lastName",
           totalAnswers: 1,
           correctAnswers: 1,
           incorrectAnswers: 1,
@@ -146,6 +148,8 @@ adminRouter.get("/users/csv", async (req, res) => {
           _id: 0,
           userId: "$_id",
           phone: "$userInfo.phone",
+          firstName: "$userInfo.firstName",
+          lastName: "$userInfo.lastName",
           totalAnswers: 1,
           correctAnswers: 1,
           incorrectAnswers: 1,
@@ -156,12 +160,12 @@ adminRouter.get("/users/csv", async (req, res) => {
     .toArray();
 
   let csvContent =
-    "Номер телефона,Количество правильных ответов," +
+    "Номер телефона,Фамилия,Имя,Количество правильных ответов," +
     Array.from({ length: 50 }, (_, i) => `кп${i + 1}`).join(",") +
     "\n";
 
   answers.forEach((user) => {
-    let row = `${user.phone},${user.correctAnswers},`;
+    let row = `${user.phone},${user.lastName},${user.firstName},${user.correctAnswers},`;
     row += Array.from({ length: 50 }, (_, index) => {
       const hasCorrectAnswer = user.answers.some(
         (answer: { correct: any; checkpointNumber: number }) =>

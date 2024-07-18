@@ -12,6 +12,8 @@ interface User {
   verified: boolean;
   code?: number;
   lastCodeSentAt?: Date;
+  firstName?: string;
+  lastName?: string;
   role: "admin" | "user";
 }
 

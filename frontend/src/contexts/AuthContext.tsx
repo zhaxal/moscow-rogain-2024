@@ -19,7 +19,9 @@ interface AuthContextProps {
   role: "admin" | "user" | "loading";
   signIn: (token: string) => Promise<void>;
   signOut: () => void;
+  fetchMe: () => void;
   status: Status;
+  hasName: boolean;
 }
 
 const AuthContext = createContext({} as AuthContextProps);
@@ -37,6 +39,7 @@ export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
   const [status, setStatus] = useState<Status>("loading");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [role, setRole] = useState<"admin" | "user" | "loading">("loading");
+  const [hasName, setHasName] = useState(false);
 
   const signIn = async (token: string) => {
     setToken(token);
@@ -56,12 +59,7 @@ export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
       });
   };
 
-  useEffect(() => {
-    if (token === "") {
-      setStatus("unauthenticated");
-      return;
-    }
-
+  const fetchMe = () =>
     backendInstance
       .get("/auth/me", {
         headers: {
@@ -72,11 +70,20 @@ export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
         setPhoneNumber(response.data.phone);
         setRole(response.data.role);
         setStatus("authenticated");
+        setHasName(response.data.hasName);
       })
       .catch(() => {
         setStatus("unauthenticated");
         setToken("");
       });
+
+  useEffect(() => {
+    if (token === "") {
+      setStatus("unauthenticated");
+      return;
+    }
+
+    fetchMe();
   }, [token]);
 
   const value = {
@@ -84,8 +91,10 @@ export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
     status,
     signIn,
     signOut,
+    fetchMe,
     phoneNumber,
     role,
+    hasName,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
