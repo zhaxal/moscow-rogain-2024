@@ -120,10 +120,6 @@ function Question() {
           onSubmit={handleSubmit}
           className="flex flex-col items-center justify-center min-h-screen px-4"
         >
-          <h1 className="text-2xl font-bold my-4">
-            КП №{data?.checkpointNumber}
-          </h1>
-
           <fieldset className="w-full max-w-md mb-8">
             <legend className="text-xl font-semibold my-4 text-center">
               {data?.question}
@@ -158,7 +154,7 @@ function Question() {
 
       {stage === "accept" && (
         <div className="flex items-center justify-center h-screen text-2xl font-bold ">
-          Ваш ответ принят. Не забудьте отсканировать свою метку на этом КП
+          Ваш ответ принят.
         </div>
       )}
 

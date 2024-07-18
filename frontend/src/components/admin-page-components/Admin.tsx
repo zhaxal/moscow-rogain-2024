@@ -24,10 +24,11 @@ type UserAnswersResponse = User[];
 
 function Admin() {
   const { token } = useAuth();
+  let csvLink = "https://rogaine.mosgorsport.ru/api/admin/users/csv";
 
-  const csvLink =
-    import.meta.env.VITE_BACKEND_URL + "/admin/users/csv" ||
-    "https://rogaine.mosgorsport.ru/api/admin/users/csv";
+  if (import.meta.env.VITE_BACKEND_URL) {
+    csvLink = `${import.meta.env.VITE_BACKEND_URL}/admin/users/csv`;
+  }
 
   const { data, isLoading } = useQuery({
     queryKey: ["admin"],
