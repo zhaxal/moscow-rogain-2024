@@ -14,6 +14,7 @@ interface User {
   lastCodeSentAt?: Date;
   firstName?: string;
   lastName?: string;
+  startNumber?: number;
   role: "admin" | "user";
 }
 

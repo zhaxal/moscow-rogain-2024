@@ -12,7 +12,7 @@ dotenv.config();
 
 const authRouter = Router();
 
-const useVoiceCode = false;
+const useVoiceCode = true;
 
 authRouter.post("/register", async (req, res) => {
   const code = randomInt(1000, 9999);
@@ -149,16 +149,16 @@ authRouter.post("/name", async (req, res) => {
     return res.status(401).send("не авторизован");
   }
 
-  const { firstName, lastName } = req.body;
+  const { firstName, lastName, startNumber } = req.body;
 
-  if (!firstName || !lastName) {
+  if (!firstName || !lastName || !startNumber) {
     return res.status(400).send("имя не указано");
   }
 
   await usersCol.updateOne(
     { _id: session.userId },
     {
-      $set: { firstName, lastName },
+      $set: { firstName, lastName, startNumber: parseInt(startNumber) },
     }
   );
 
@@ -189,7 +189,7 @@ authRouter.get("/me", async (req, res) => {
 
   let hasName = false;
 
-  if (user.firstName && user.lastName) {
+  if (user.firstName && user.lastName && user.startNumber) {
     hasName = true;
   }
 

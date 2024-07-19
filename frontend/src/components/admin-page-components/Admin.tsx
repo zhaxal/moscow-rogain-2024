@@ -20,6 +20,7 @@ interface User {
   phone: string;
   firstName?: string;
   lastName?: string;
+  startNumber?: number;
 }
 
 type UserAnswersResponse = User[];
@@ -74,10 +75,13 @@ function Admin() {
                 Номер телефона
               </th>
               <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                Имя
+              </th>
+              <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                 Фамилия
               </th>
               <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                Имя
+                Стартовый номер
               </th>
               <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                 Количество правильных ответов
@@ -99,10 +103,13 @@ function Admin() {
                   {user.phone}
                 </td>
                 <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                  {user.firstName || "—"}
+                </td>
+                <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                   {user.lastName || "—"}
                 </td>
                 <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                  {user.firstName || "—"}
+                  {user.startNumber || "-"}
                 </td>
                 <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                   {user.correctAnswers}

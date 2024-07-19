@@ -9,7 +9,7 @@ interface SecuredRouteProps {
 }
 
 function SecuredRoute(props: SecuredRouteProps) {
-  const { role, status } = useAuth();
+  const { role, status, hasName } = useAuth();
   const location = useLocation();
 
   if (status === "loading") {
@@ -20,7 +20,7 @@ function SecuredRoute(props: SecuredRouteProps) {
     );
   }
 
-  if (status === "unauthenticated") {
+  if (status === "unauthenticated" || !hasName) {
     return <Navigate to={`/login?redirect=${location.pathname}`} />;
   }
 

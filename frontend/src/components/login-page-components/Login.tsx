@@ -23,6 +23,7 @@ interface CodeFormProps {
 interface NameFormProps {
   firstName: string;
   lastName: string;
+  startNumber: string;
 }
 
 const schema = yup.object().shape({
@@ -136,11 +137,16 @@ function Login() {
       yup.object().shape({
         firstName: yup.string().required("Введите имя"),
         lastName: yup.string().required("Введите фамилию"),
+        startNumber: yup
+          .string()
+          .matches(/^\d+$/, "Введите стартовый номер, используя только цифры")
+          .required("Введите стартовый номер"),
       })
     ),
     defaultValues: {
       firstName: "",
       lastName: "",
+      startNumber: "",
     },
   });
 
@@ -261,6 +267,19 @@ function Login() {
               {nameForm.formState.errors.firstName && (
                 <p className="text-sm text-red-600">
                   {nameForm.formState.errors.firstName.message}
+                </p>
+              )}
+              <label className="block" htmlFor="startNumber">
+                Стартовый номер
+              </label>
+              <input
+                {...nameForm.register("startNumber")}
+                type="text"
+                className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-red-600"
+              />
+              {nameForm.formState.errors.startNumber && (
+                <p className="text-sm text-red-600">
+                  {nameForm.formState.errors.startNumber.message}
                 </p>
               )}
             </div>
