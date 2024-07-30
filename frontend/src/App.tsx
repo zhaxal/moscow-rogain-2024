@@ -1,11 +1,11 @@
 import "./App.css";
 
-import Map from "./components/home-page-components/Map";
-import Cover from "./components/home-page-components/Cover";
+import Map from "./components/home-page-components/new/Map";
+import Cover from "./components/home-page-components/new/Cover";
+import Format from "./components/home-page-components/new/Format";
+import Footer from "./components/home-page-components/new/Footer";
+
 import Login from "./components/login-page-components/Login";
-import Format from "./components/home-page-components/Format";
-import Footer from "./components/home-page-components/Footer";
-import Schedule from "./components/home-page-components/Schedule";
 import Question from "./components/question-page-components/Question";
 
 import SecuredRoute from "./components/SecuredRoute";
@@ -16,6 +16,7 @@ import AuthProvider from "./contexts/AuthContext";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Admin from "./components/admin-page-components/Admin";
+import OldPage from "./components/OldPage";
 
 const queryClient = new QueryClient();
 
@@ -32,7 +33,6 @@ function App() {
                   <div className="max-w-[1140px] mx-auto overflow-visible">
                     <Cover />
                     <Format />
-                    <Schedule />
                     <Map />
                     <Footer />
                   </div>
@@ -67,6 +67,15 @@ function App() {
                       <Admin />
                     </div>
                   </SecuredRoute>
+                }
+              />
+
+              <Route
+                path="/old"
+                element={
+                  <div className="max-w-[1140px] mx-auto overflow-visible">
+                    <OldPage />
+                  </div>
                 }
               />
 
