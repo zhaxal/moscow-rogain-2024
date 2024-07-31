@@ -99,6 +99,10 @@ function Format() {
               Количество попыток - не ограничено!
             </p>
             <p className="font-gothamProLight leading-none text-[16px] text-left">
+              Предварительная регистрация не требуется, участие в порядке живой
+              очереди.
+              <br />
+              <br />
               Время работы лабиринта
               <br />
               <br />

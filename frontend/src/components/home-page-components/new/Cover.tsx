@@ -1,7 +1,7 @@
 function Cover() {
   return (
     <>
-      <div className="lg:bg-[url(/new/cover.svg)] md:bg-[url(/new/cover.svg)] bg-[url(/new/cover_mobile.svg)] bg-no-repeat bg-center bg-cover lg:min-h-[705px] md:min-h-[450px] min-h-[640px]" />
+      <div className="lg:bg-[url(/new/cover.svg)] md:bg-[url(/new/cover.svg)] bg-[url(/new/cover_mobile.svg)] bg-no-repeat bg-center bg-cover lg:min-h-[705px] md:min-h-[450px] min-h-[660px]" />
       <div className="pt-4 justify-center md:justify-end space-x-4 lg:flex md:hidden hidden">
         <a
           target="_blank"
@@ -64,8 +64,8 @@ function Cover() {
 
         <div className="flex-col md:space-y-20 space-y-12">
           <p className="font-gothamProMedium text-lg md:text-[24px] lg:max-w-[600px] leading-none text-justify">
-            Приглашаем всех желающих принять участие и бросить вызов соперникам
-            в сориентировании по ориентированию в лабиринте!
+            10 Августа приглашаем всех желающих принять участие и бросить вызов
+            соперникам в соревновании по ориентированию в лабиринте!
             <br />
             <br />
             Вход свободный. Обязательна предварительная регистрация на сайте для

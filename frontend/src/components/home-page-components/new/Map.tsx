@@ -2,7 +2,7 @@ function Map() {
   return (
     <>
       <div className="lg:flex hidden space-x-32 px-16 py-6">
-        <div className="flex-col space-y-5 max-w-[370px] py-10">
+        <div className="flex-col space-y-5 max-w-[375px] py-10">
           <h2 className="font-mossport text-[64px] text-customPurple leading-mossport text-left mb-8">
             ГДЕ НАС НАЙТИ?
           </h2>
@@ -21,7 +21,9 @@ function Map() {
               Место проведения
             </p>
             <p className="font-gothamProMedium text-[24px] text-left">
-              СК «ЛУЖНИКИ»,СПОРТИВНЫЙ КОМПЛЕКС «ПОД МОСТОМ»
+              СК «ЛУЖНИКИ»,
+              <br />
+              СПОРТИВНЫЙ КОМПЛЕКС «ПОД МОСТОМ»
             </p>
           </div>
         </div>
@@ -42,7 +44,7 @@ function Map() {
 
       <iframe
         className="lg:hidden md:block sm:block mb-8"
-        src="https://yandex.com/map-widget/v1/?um=constructor%3A15fcf51ce76e6bcb2a9ecd4d68fad14d4495599907b498ce3f14c58771a3836d&amp;source=constructor"
+        src="https://yandex.com/map-widget/v1/?um=constructor%3A3baefe9a798e4d04d43ec9f06fdfa76c691d4a6230d87d56fa48fb27986ab252&amp;source=constructor"
         width="100%"
         height="490"
         frameBorder="0"
@@ -54,7 +56,7 @@ function Map() {
             Эл. почта
           </p>
           <p className="font-gothamProMedium md:text-[24px] text-left underline">
-            <a href="mailto:pr@mosgorsport.ru">pr@mosgorsport.ru</a>
+            <a href="mailto:orientmoscow@yandex.ru">orientmoscow@yandex.ru</a>
           </p>
         </div>
 
@@ -62,8 +64,10 @@ function Map() {
           <p className="font-gothamProBold md:text-[24px] text-left">
             Место проведения
           </p>
-          <p className="font-gothamProMedium md:text-[24px] text-left">
-            НЕСКУЧНЫЙ САД И ВОРОБЬЕВЫ ГОРЫ
+          <p className="font-gothamProMedium text-[24px] text-left">
+            СК «ЛУЖНИКИ»,
+            <br />
+            СПОРТИВНЫЙ КОМПЛЕКС «ПОД МОСТОМ»
           </p>
         </div>
       </div>
