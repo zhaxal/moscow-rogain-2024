@@ -68,22 +68,8 @@ function Cover() {
             соперникам в соревновании по ориентированию в лабиринте!
             <br />
             <br />
-            Вход свободный. Обязательна предварительная регистрация на сайте для
-            участия в соревнованиях.
+            Вход свободный.
           </p>
-
-          <button
-            onClick={() =>
-              window.open(
-                "https://orgeo.ru/event/36882",
-                "_blank",
-                "noopener,noreferrer"
-              )
-            }
-            className="bg-mossport text-white font-gothamProMedium text-[16px] py-3 px-5 hover:opacity-75 focus:ring-2 focus:ring-mossport focus:ring-opacity-50 active:bg-mossport-dark transition-opacity duration-150"
-          >
-            РЕГИСТРАЦИЯ
-          </button>
         </div>
       </div>
     </>
