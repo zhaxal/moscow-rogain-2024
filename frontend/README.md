@@ -1,142 +1,30 @@
-# Moscow Rogaining Event Platform
+# React + TypeScript + Vite
 
-A full-stack web application for managing orienteering and rogaining events in Moscow. The platform includes user registration, event participation tracking, and administrative features.
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-## Features
+Currently, two official plugins are available:
 
-- User Authentication
-  - Phone number verification via voice call
-  - User profile management
-  - Role-based access control (admin/user)
-- Event Management
-  - Multiple event formats (Rogaining, Labyrinth, Sport Orienteering)
-  - Family participation tracking
-  - Checkpoint verification system
-- Admin Dashboard
-  - Real-time participant tracking
-  - Results export to CSV
-  - User management
-- Responsive Design
-  - Mobile-first approach
-  - Interactive event schedule
-  - Dynamic content sections
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-## Tech Stack
+## Expanding the ESLint configuration
 
-### Frontend
-- React 18+ with TypeScript
-- Vite for build tooling
-- TailwindCSS for styling
-- React Query for data fetching
-- React Router for navigation
-- Axios for HTTP requests
-- Context API for state management
+If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
 
-### Backend
-- Node.js with Express
-- TypeScript
-- MongoDB for data storage
-- JWT for authentication
-- Digital Direct API integration for phone verification
+- Configure the top-level `parserOptions` property like this:
 
-## Project Structure
-
-```
-├── backend/
-│   ├── src/
-│   │   ├── routes/
-│   │   │   ├── admin.ts
-│   │   │   ├── auth.ts
-│   │   │   └── question.ts
-│   │   └── database.ts
-│   └── index.ts
-└── frontend/
-    ├── src/
-    │   ├── components/
-    │   ├── contexts/
-    │   ├── hooks/
-    │   └── utils/
-    ├── public/
-    └── index.html
+```js
+export default {
+  // other rules...
+  parserOptions: {
+    ecmaVersion: 'latest',
+    sourceType: 'module',
+    project: ['./tsconfig.json', './tsconfig.node.json'],
+    tsconfigRootDir: __dirname,
+  },
+}
 ```
 
-## Getting Started
-
-### Prerequisites
-
-- Node.js 16+
-- MongoDB 4.4+
-- Docker and Docker Compose (optional)
-
-### Environment Variables
-
-#### Backend
-```env
-MONGODB_URI=mongodb://localhost:27017/rogain24
-DB_NAME=rogain24
-PORT=3000
-DIGITAL_DIRECT_TOKEN=your_token_here
-```
-
-#### Frontend
-```env
-VITE_BACKEND_URL=http://localhost:3000/api
-```
-
-### Local Development
-
-1. Clone the repository
-```bash
-git clone https://github.com/your-repo/moscow-rogaining.git
-```
-
-2. Install dependencies
-```bash
-# Install backend dependencies
-cd backend
-npm install
-
-# Install frontend dependencies
-cd frontend
-npm install
-```
-
-3. Start the development servers
-```bash
-# Start backend
-cd backend
-npm run dev
-
-# Start frontend
-cd frontend
-npm run dev
-```
-
-### Docker Deployment
-
-Use the provided docker-compose.yml to deploy the application:
-
-```bash
-docker-compose up -d
-```
-
-## API Endpoints
-
-### Authentication
-- `POST /api/auth/register` - Register new user
-- `POST /api/auth/verify` - Verify phone number
-- `POST /api/auth/name` - Update user profile
-- `GET /api/auth/me` - Get current user info
-- `POST /api/auth/logout` - Logout user
-
-### Questions
-- `GET /api/question/:id` - Get question details
-- `POST /api/question/:id/answer` - Submit answer
-
-### Admin
-- `GET /api/admin/users` - Get all users data
-- `GET /api/admin/users/csv` - Export users data to CSV
-
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details
+- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
+- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
+- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
