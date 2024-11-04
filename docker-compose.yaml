@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: rogaining-backend
+    restart: always
+    environment:
+      - MONGODB_URI=${MONGODB_URI}
+      - DB_NAME=rogain24
+      - PORT=3000
+      - DIGITAL_DIRECT_TOKEN=${DIGITAL_DIRECT_TOKEN}
+    ports:
+      - "3000:3000"
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        VITE_BACKEND_URL: ${VITE_BACKEND_URL}      
+    container_name: rogaining-frontend
+    restart: always
+    ports:
+      - "3005:3005"
+    depends_on:
+      - backend      

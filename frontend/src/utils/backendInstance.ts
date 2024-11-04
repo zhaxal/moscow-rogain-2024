@@ -2,7 +2,7 @@ import axios from "axios";
 
 const backendInstance = axios.create({
   baseURL:
-    import.meta.env.VITE_BACKEND_URL || "https://rogaine.mosgorsport.ru/api",
+    import.meta.env.VITE_BACKEND_URL,
   timeout: 5000,
 });
 

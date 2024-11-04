@@ -1,5 +1,10 @@
 FROM --platform=linux/amd64 node:18-alpine
 
+# Define build arguments for environment variables
+ARG VITE_BACKEND_URL
+
+# Set environment variables during the build process
+ENV VITE_BACKEND_URL=$VITE_BACKEND_URL
 
 WORKDIR /usr/src/app
 COPY package*.json ./
